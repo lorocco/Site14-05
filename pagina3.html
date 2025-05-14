@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Marcando o dia</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    /* Vídeo full-screen + overlay */
+    #video-wrapper {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      overflow: hidden; z-index: 1;
+    }
+    #video-bg {
+      position: absolute;
+      top: 50%; left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    #video-overlay {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 2;
+    }
+
+    /* Container principal */
+    body {
+      margin: 0; min-height: 100vh;
+      display: flex; justify-content: center; align-items: center;
+      background-color: #aeddff;
+    }
+    .container {
+      position: relative; z-index: 3;
+      background-color: #bbdefb;
+      padding: 30px; border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center; width: 90%; max-width: 500px;
+      color: #212529;
+    }
+    .mb-3 { margin-bottom: 25px; }
+    .form-control {
+      border-radius: 8px; border: 1px solid #90caf9;
+      padding: 10px; font-size: 1rem;
+    }
+    .btn-primary {
+      background-color: #1e88e5; border-color: #1e88e5;
+      font-size: 1.2rem; padding: 10px 20px;
+      border-radius: 8px; width: 100%;
+    }
+    .btn-primary:hover {
+      background-color: #1565c0; border-color: #1565c0;
+    }
+    #mensagem-confirmacao {
+      color: #2e7d32; font-weight: bold;
+      margin-top: 20px; display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="video-wrapper">
+    <iframe
+      id="video-bg"
+      src="https://www.youtube.com/embed/-JClEz5NMAs?autoplay=1&mute=1&loop=1&controls=0&playlist=-JClEz5NMAs"
+      frameborder="0"
+      allow="autoplay; loop; muted"
+      allowfullscreen>
+    </iframe>
+    <div id="video-overlay"></div>
+  </div>
+
+  <div class="container">
+    <h2 class="mb-4" id="pergunta">
+      É você mesmo aí, então, que dia vamos pro aquário?
+    </h2>
+    <form id="form-aquario" action="https://formsubmit.co/lorenzorbrasil@gmail.com" method="POST">
+      <div class="mb-3">
+        <input type="date" class="form-control" name="data_aquario" required>
+      </div>
+      <input type="hidden" name="_subject" value="Sugestão de data para o aquário">
+      <input type="hidden" name="_next" value="">
+      <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+    <div id="mensagem-confirmacao">Ok, combinado!</div>
+  </div>
+
+  <script>
+    document.getElementById('form-aquario').addEventListener('submit', function(event) {
+      event.preventDefault();
+      document.getElementById('mensagem-confirmacao').style.display = 'block';
+      document.getElementById('form-aquario').style.display = 'none';
+      document.getElementById('pergunta').style.display = 'none';
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

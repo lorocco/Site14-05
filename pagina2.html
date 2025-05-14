@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perguntas de Confirmação</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #aeddff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #212529;
+        }
+        .container {
+            background-color: #bbdefb;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+        }
+        .form-label {
+            font-weight: bold;
+            color: #1976d2;
+        }
+        .form-control {
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: 1px solid #90caf9;
+        }
+        .btn-primary {
+            background-color: #1e88e5;
+            border-color: #1e88e5;
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            border-radius: 8px;
+            width: 100%;
+            cursor: pointer;
+        }
+        .btn-primary:hover {
+            background-color: #1565c0;
+            border-color: #1565c0;
+        }
+        .mensagem-erro {
+            color: red;
+            margin-top: 10px;
+            text-align: center;
+        }        
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2 class="mb-4 text-center">Responda às perguntas:</h2>
+    <form id="form-perguntas">
+        <div class="mb-3">
+            <label class="form-label">Assistir 'Acompanhante Perfeita' de novo ou dobra e passa pro próximo?</label>
+            <div>
+                <input type="radio" class="form-check-input" id="pergunta1_opcao1" name="pergunta1" value="dobra e passa pro próximo" required>
+                <label class="form-check-label" for="pergunta1_opcao1">Dobra e passa pro próximo</label>
+            </div>
+            <div>
+                <input type="radio" class="form-check-input" id="pergunta1_opcao2" name="pergunta1" value="assistir de novo">
+                <label class="form-check-label" for="pergunta1_opcao2">Assistir de novo</label>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Qual vai ser o nome do nosso chorrinho?</label>
+            <div>
+                <input type="radio" class="form-check-input" id="pergunta2_opcao4" name="pergunta2" value="Lucky">
+                <label class="form-check-label" for="pergunta2_opcao4">Dina</label>
+            </div>
+            <div>
+                <input type="radio" class="form-check-input" id="pergunta2_opcao2" name="pergunta2" value="Bolinha">
+                <label class="form-check-label" for="pergunta2_opcao2">Bolinha(?)</label>
+            </div>
+            <div>
+                <input type="radio" class="form-check-input" id="pergunta2_opcao3" name="pergunta2" value="Mel">
+                <label class="form-check-label" for="pergunta2_opcao3">Mel</label>
+            </div>
+            <div>
+                <input type="radio" class="form-check-input" id="pergunta2_opcao1" name="pergunta2" value="Pipo" required>
+                <label class="form-check-label" for="pergunta2_opcao1">Pipo</label>
+            </div>
+            <div>
+                <input type="radio" class="form-check-input" id="pergunta2_opcao5" name="pergunta2" value="Thor">
+                <label class="form-check-label" for="pergunta2_opcao5">Thor</label>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="pergunta3" class="form-label">Qual a melhor piada de todos os tempos do seu amor?</label>
+            <input type="text" class="form-control" id="pergunta3" name="pergunta3" required>
+        </div>
+        <div class="mb-3">
+            <label for="pergunta4" class="form-label">Qual o dia mais importante de todos?</label>
+            <input type="date" class="form-control" id="pergunta4" name="pergunta4" required>
+        </div>
+        <div id="mensagem-erro" class="mensagem-erro" style="display: none;">Respostas incorretas. Por favor, revise suas respostas.</div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('form-perguntas').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const resposta1 = document.querySelector('input[name="pergunta1"]:checked');
+        const resposta2 = document.querySelector('input[name="pergunta2"]:checked');
+        const resposta4 = document.getElementById('pergunta4').value;
+
+        const mensagemErro = document.getElementById('mensagem-erro');
+
+        if (resposta1 && resposta1.value === 'dobra e passa pro próximo' &&
+            resposta2 && resposta2.value === 'Pipo' &&
+            resposta4 === '2024-09-14') {
+            window.location.href = 'pagina3.html';
+        } else {
+            mensagemErro.style.display = 'block';
+        }
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

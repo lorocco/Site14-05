@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Página pro momo</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <style>
+    #aquarium {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: linear-gradient(to top, #003f5c, #2f4b7c);
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      color: #fff;
+    }
+    .container {
+      text-align: center;
+    }
+    .btn-primary {
+      background-color: #1e88e5;
+      border-color: #1e88e5;
+      font-size: 1.5rem;
+      padding: 15px 30px;
+      border-radius: 10px;
+    }
+    .btn-primary:hover {
+      background-color: #1565c0;
+      border-color: #1565c0;
+    }
+  </style>
+</head>
+<body>
+  <!-- canvas do aquário -->
+  <canvas id="aquarium"></canvas>
+
+  <div class="container">
+    <h1 class="mb-4">
+      Oi minha vidiquinha! Para confirmar que é você, responde umas perguntinhas,
+      duvido.
+    </h1>
+    <a href="pagina2.html" class="btn btn-primary">Começar</a>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- script da animação -->
+  <script>
+    const canvas = document.getElementById('aquarium');
+    const ctx = canvas.getContext('2d');
+    let W, H, bubbles = [];
+
+    function resize() {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    // bolha
+    function createBubble() {
+      return {
+        x: Math.random() * W,
+        y: H + 20,
+        radius: 2 + Math.random() * 8,
+        speed: 1 + Math.random() * 2,
+        alpha: 0.2 + Math.random() * 0.4
+      };
+    }
+
+    for (let i = 0; i < 60; i++) {
+      bubbles.push(createBubble());
+    }
+
+    function drawBubble(b) {
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255, 255, 255, ${b.alpha})`;
+      ctx.fill();
+    }
+
+    // loop de animação
+    function animate() {
+      ctx.clearRect(0, 0, W, H);
+
+      for (let i = 0; i < bubbles.length; i++) {
+        const b = bubbles[i];
+        b.y -= b.speed;    // sobe
+        b.x += Math.sin(b.y * 0.01) * 0.5; // leve balanço lateral
+
+        drawBubble(b);
+
+        // quando sai de cima, recria embaixo
+        if (b.y + b.radius < 0) {
+          bubbles[i] = createBubble();
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
+</body>
+</html>
